@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FT UGM - Eats & Seats Control Room</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>FT UGM LOGISTIC</h2>
+                <div class="live-tag"><span class="blink-dot red"></span> GRID NODE ONLINE</div>
+            </div>
+            <nav class="kantin-menu">
+                <span class="nav-label">// PILIH KANTIN DEPARTEMEN</span>
+                <ul id="kantin-list">
+                    </ul>
+            </nav>
+        </aside>
+
+        <main class="main-panel">
+            
+            <header class="main-header">
+                <div class="header-info">
+                    <span class="system-id">MONITORING_SYSTEM_INTEGRATED // V2.8</span>
+                    <h1 id="active-kantin-title">Kantin SGLC Hub</h1>
+                </div>
+                <div class="status-badge-container">
+                    <div id="badge-crowd" class="status-pill">LOADING...</div>
+                    <div id="badge-delivery" class="status-pill">LOADING...</div>
+                </div>
+            </header>
+
+            <section class="analytics-section">
+                <div class="chart-card">
+                    <h3>OVERVIEW KEPADATAN SELURUH KANTIN (PIE ANALYTICS)</h3>
+                    <div class="pie-container">
+                        <div id="pie-chart" class="pie-chart-visual"></div>
+                        <div class="pie-legend">
+                            <div><span class="legend-color green"></span> Sepi (<span id="pie-sepi">0</span>)</div>
+                            <div><span class="legend-color yellow"></span> Ramai (<span id="pie-ramai">0</span>)</div>
+                            <div><span class="legend-color red"></span> Penuh (<span id="pie-penuh">0</span>)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3>AKUMULASI LIVE ORDER DELIVERY PER KANTIN (BAR CHART)</h3>
+                    <div class="bar-chart-container" id="bar-chart-wrapper">
+                        </div>
+                </div>
+            </section>
+
+            <section class="sensor-grid">
+                <div class="sensor-box" id="card-suhu">
+                    <span class="sensor-id">SENS_TH_01</span>
+                    <h4>SUHU LINGKUNGAN</h4>
+                    <div class="sensor-display"><span id="txt-suhu">00.0</span> <span class="unit">°C</span></div>
+                    <div class="live-wave-bg"><div class="wave blue-w"></div></div>
+                    <p id="status-suhu" class="sensor-lbl">CALIBRATING</p>
+                    <span class="threshold-tag">Standar: 24°C - 27°C</span>
+                </div>
+                <div class="sensor-box" id="card-kelembapan">
+                    <span class="sensor-id">SENS_HM_02</span>
+                    <h4>KELEMBAPAN UDARA</h4>
+                    <div class="sensor-display"><span id="txt-kelembapan">00</span> <span class="unit">%</span></div>
+                    <div class="live-wave-bg"><div class="wave purple-w"></div></div>
+                    <p id="status-kelembapan" class="sensor-lbl">PROCESSING</p>
+                    <span class="threshold-tag">Standar Ideal: 40% - 60%</span>
+                </div>
+                <div class="sensor-box" id="card-cahaya">
+                    <span class="sensor-id">SENS_LX_03</span>
+                    <h4>INTENSITAS CAHAYA</h4>
+                    <div class="sensor-display"><span id="txt-cahaya">000</span> <span class="unit">Lx</span></div>
+                    <div class="live-wave-bg"><div class="wave yellow-w"></div></div>
+                    <p id="status-cahaya" class="sensor-lbl">MONITORING</p>
+                    <span class="threshold-tag">Standar SNI: 200 - 500 Lx</span>
+                </div>
+                <div class="sensor-box" id="card-suara">
+                    <span class="sensor-id">SENS_AC_04</span>
+                    <h4>TINGKAT KEBISINGAN</h4>
+                    <div class="sensor-display"><span id="txt-suara">00</span> <span class="unit">dB</span></div>
+                    <div class="live-wave-bg"><div class="wave red-w"></div></div>
+                    <p id="status-suara" class="sensor-lbl">SAMPLING</p>
+                    <span class="threshold-tag">Standar Nyaman: &lt; 65 dB</span>
+                </div>
+            </section>
+
+            <section class="operational-grid">
+                <div class="op-panel">
+                    <div class="op-panel-header">
+                        <h3>DENAH MATRIKS KURSI KANTIN</h3>
+                        <span id="txt-kursi-count" class="counter-badge">0/40 TERISI</span>
+                    </div>
+                    <div class="matrix-grid" id="layout-kursi">
+                        </div>
+                    <div class="matrix-legend">
+                        <span class="leg-item"><span class="leg-dot bg-green"></span> KOSONG (READY)</span>
+                        <span class="leg-item"><span class="leg-dot bg-red"></span> TERISI (OCCUPIED)</span>
+                    </div>
+                </div>
+
+                <div class="op-panel flex-panel">
+                    <div class="tracker-sub-panel">
+                        <div class="sub-panel-header">🍳 CAMPUS DELIVERY TRACKER (LIVE)</div>
+                        <div class="delivery-list" id="live-delivery-tracker">
+                            <p class="empty-tracker">Belum ada order pengantaran aktif.</p>
+                        </div>
+                    </div>
+
+                    <div class="menu-sub-panel">
+                        <div class="sub-panel-header">DAFTAR MENU STOK & ORDER ONLINE</div>
+                        <div class="menu-scroll-container" id="daftar-menu">
+                            </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="ticker-footer">
+                <div class="ticker-title">LOG SYSTEM FEED:</div>
+                <div class="ticker-content">
+                    <div class="ticker-text-wrapper" id="ticker-container">
+                        </div>
+                </div>
+            </footer>
+
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

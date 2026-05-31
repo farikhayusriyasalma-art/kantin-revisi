@@ -1,0 +1,334 @@
+/* INDUSTRIAL INDUSTRIAL LIGHT MODE - HIGHEST VISIBILITY */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f1f5f9; /* Abu terang bersih laboratorium */
+    color: #0f172a; /* Teks hitam pekat kontras tinggi */
+    font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, .sensor-display, .counter-badge, .status-pill, .nav-label, .sub-panel-header {
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.dashboard-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sisi Sidebar Navigasi */
+.sidebar {
+    width: 280px;
+    background-color: #ffffff;
+    border-right: 3px solid #cbd5e1;
+    padding: 20px;
+}
+.sidebar-header {
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e2e8f0;
+    margin-bottom: 20px;
+}
+.sidebar-header h2 {
+    color: #1e3a8a; /* Biru Tua Kampus */
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+.live-tag {
+    font-size: 0.75rem;
+    color: #16a34a;
+    font-weight: bold;
+    margin-top: 5px;
+}
+.blink-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 5px;
+    animation: flash 1s infinite;
+}
+.blink-dot.red { background-color: #ef4444; }
+
+@keyframes flash {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+.nav-label {
+    font-size: 0.8rem;
+    color: #64748b;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 10px;
+}
+.kantin-menu ul { list-style: none; }
+.kantin-menu ul li {
+    padding: 12px 15px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #cbd5e1;
+    color: #334155;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-bottom: 6px;
+    transition: all 0.15s ease;
+}
+.kantin-menu ul li:hover {
+    background-color: #f1f5f9;
+    border-left-color: #1e3a8a;
+}
+.kantin-menu ul li.active {
+    background-color: #eff6ff;
+    color: #1e3a8a;
+    border-left: 5px solid #1e3a8a;
+    border-color: #bfdbfe #bfdbfe #bfdbfe #1e3a8a;
+    font-weight: bold;
+}
+
+/* Layout Utama */
+.main-panel {
+    flex: 1;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.main-header {
+    background-color: #ffffff;
+    border: 2px solid #cbd5e1;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.system-id { font-size: 0.75rem; color: #64748b; font-weight: bold; }
+#active-kantin-title { color: #1e3a8a; font-size: 1.8rem; text-transform: uppercase; }
+
+/* Status Pil Atas */
+.status-badge-container { display: flex; gap: 10px; }
+.status-pill {
+    padding: 6px 15px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+.bg-sepi { background-color: #10b981; }
+.bg-ramai { background-color: #f59e0b; color: #0f172a !important; }
+.bg-penuh { background-color: #ef4444; }
+.bg-normal-dlv { background-color: #2563eb; }
+.bg-overload-dlv { background-color: #ea580c; animation: pulse 1.5s infinite; }
+
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
+
+/* ================= ROW 1: GRAFIK (ANALYTICS) ================= */
+.analytics-section {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 20px;
+}
+.chart-card {
+    background-color: #ffffff;
+    border: 2px solid #cbd5e1;
+    padding: 15px;
+}
+.chart-card h3 {
+    font-size: 0.85rem;
+    color: #475569;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+}
+.pie-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 120px;
+}
+.pie-chart-visual {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+.pie-legend { font-size: 0.8rem; font-weight: 600; }
+.legend-color { display: inline-block; width: 10px; height: 10px; margin-right: 5px; }
+.legend-color.green { background-color: #10b981; }
+.legend-color.yellow { background-color: #f59e0b; }
+.legend-color.red { background-color: #ef4444; }
+
+/* Grafik Batang */
+.bar-chart-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 120px;
+    padding: 0 5px;
+}
+.bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+.bar-pipe {
+    width: 20px;
+    background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+    position: relative;
+    transition: height 0.4s ease;
+}
+.bar-pipe::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background-color: #60a5fa;
+}
+.bar-val { font-size: 0.65rem; font-weight: bold; margin-bottom: 2px; color: #1e3a8a; }
+.bar-label { font-size: 0.6rem; font-weight: bold; color: #64748b; margin-top: 5px; text-transform: uppercase; }
+
+/* ================= ROW 2: SENSOR GRID + STYLING WARNING ================= */
+.sensor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+.sensor-box {
+    background-color: #ffffff;
+    border: 2px solid #cbd5e1;
+    padding: 15px;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+}
+.sensor-id { font-size: 0.65rem; color: #94a3b8; font-weight: bold; position: absolute; top: 5px; right: 8px; }
+.sensor-box h4 { font-size: 0.75rem; color: #64748b; margin-bottom: 5px; }
+.sensor-display { font-size: 2.2rem; font-weight: 800; color: #0f172a; line-height: 1; }
+.sensor-display .unit { font-size: 1rem; color: #64748b; }
+.sensor-lbl { font-size: 0.8rem; font-weight: 800; margin-top: 10px; text-transform: uppercase; }
+.threshold-tag { display: block; font-size: 0.65rem; color: #64748b; font-style: italic; margin-top: 3px; }
+
+/* Kelas Dinamis Sensor Berubah Warna Menyala Berdasarkan Kondisi */
+.status-normal { border-left: 6px solid #10b981; }
+.status-normal .sensor-lbl { color: #047857; }
+
+.status-warning { border-left: 6px solid #d97706; background-color: #fffbeb; }
+.status-warning .sensor-lbl { color: #b45309; }
+
+.status-danger { border-left: 6px solid #ef4444; background-color: #fef2f2; }
+.status-danger .sensor-lbl { color: #b91c1c; }
+
+/* Mini Wave Effect Background */
+.live-wave-bg { height: 12px; background-color: rgba(0,0,0,0.03); margin-top: 8px; position: relative; overflow: hidden; }
+.wave { width: 200%; height: 100%; position: absolute; background-repeat: repeat-x; animation: wave-move 3s linear infinite alternate; }
+.blue-w { background-image: linear-gradient(90deg, #2563eb 30%, transparent 30%); background-size: 15px 100%; opacity: 0.15; }
+.purple-w { background-image: linear-gradient(90deg, #a855f7 40%, transparent 40%); background-size: 10px 100%; opacity: 0.15; }
+.yellow-w { background-image: linear-gradient(90deg, #eab308 20%, transparent 20%); background-size: 20px 100%; opacity: 0.15; }
+.red-w { background-image: linear-gradient(90deg, #ef4444 50%, transparent 50%); background-size: 12px 100%; opacity: 0.15; }
+
+@keyframes wave-move { 0% { transform: translateX(0); } 100% { transform: translateX(-25%); } }
+
+/* ================= ROW 3: OPERATIONAL & TRACKER ================= */
+.operational-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 20px;
+}
+.op-panel {
+    background-color: #ffffff;
+    border: 2px solid #cbd5e1;
+    padding: 20px;
+}
+.op-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+.op-panel-header h3 { font-size: 0.95rem; color: #1e293b; }
+.counter-badge { background-color: #1e3a8a; color: white; padding: 3px 8px; font-size: 0.75rem; font-weight: 700; }
+
+/* Grid Kursi */
+.matrix-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; margin-bottom: 15px; }
+.kursi-node {
+    aspect-ratio: 1.2; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700;
+}
+.kursi-node.ready { background-color: #d1fae5; border: 2px solid #10b981; color: #065f46; }
+.kursi-node.occupied { background-color: #fee2e2; border: 2px solid #ef4444; color: #991b1b; }
+
+.matrix-legend { display: flex; gap: 15px; font-size: 0.75rem; font-weight: 600; }
+.leg-item { display: flex; align-items: center; gap: 5px; color: #475569; }
+.leg-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+/* Sub Panel Gabungan Kanan */
+.flex-panel { display: flex; flex-direction: column; gap: 15px; padding: 15px; }
+.sub-panel-header { font-size: 0.85rem; font-weight: 800; color: #475569; background-color: #f8fafc; padding: 6px 10px; border-left: 4px solid #64748b; margin-bottom: 8px; }
+
+/* LIVE DELIVERY TRACKER ALA SHOPEEFOOD */
+.delivery-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 110px;
+    overflow-y: auto;
+    background-color: #f8fafc;
+    padding: 8px;
+    border: 1px dashed #cbd5e1;
+}
+.empty-tracker { font-size: 0.75rem; color: #94a3b8; text-align: center; padding-top: 10px; }
+
+.dlv-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 8px 10px;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.dlv-info h6 { font-size: 0.8rem; font-weight: 700; color: #0f172a; }
+.dlv-info p { font-size: 0.65rem; color: #64748b; }
+
+/* Status Step ShopeeFood Yang Jelas */
+.dlv-step-badge {
+    padding: 3px 8px; font-size: 0.65rem; font-weight: 800; border-radius: 20px; text-transform: uppercase;
+}
+.step-dapur { background-color: #fef3c7; color: #d97706; border: 1px solid #f59e0b; }
+.step-kurir { background-color: #dbeafe; color: #2563eb; border: 1px solid #3b82f6; }
+.step-selesai { background-color: #d1fae5; color: #16a34a; border: 1px solid #10b981; }
+
+/* Bagian Menu List */
+.menu-sub-panel { flex: 1; display: flex; flex-direction: column; }
+.menu-scroll-container { display: flex; flex-direction: column; gap: 6px; max-height: 140px; overflow-y: auto; }
+.menu-row {
+    display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; background-color: #f8fafc; border: 1px solid #e2e8f0;
+}
+.m-title h5 { color: #0f172a; font-size: 0.85rem; font-weight: 700; }
+.m-title span { font-size: 0.65rem; color: #64748b; }
+
+.action-block { display: flex; align-items: center; gap: 8px; }
+.stok-lbl { font-size: 0.7rem; font-weight: bold; padding: 2px 5px; }
+.s-aman { background-color: #e2e8f0; color: #334155; }
+.s-tipis { background-color: #fef3c7; color: #92400e; }
+.s-habis { background-color: #fee2e2; color: #991b1b; }
+
+.btn-order {
+    background-color: #1e3a8a; color: white; border: none; padding: 5px 10px; font-size: 0.7rem; font-weight: bold; cursor: pointer;
+}
+.btn-order:hover { background-color: #1d4ed8; }
+.btn-order:disabled { background-color: #cbd5e1; color: #94a3b8; cursor: not-allowed; }
+
+/* ================= ROW 4: LOG FOOTER TICKER ================= */
+.ticker-footer {
+    background-color: #1e293b; color: #38bdf8; padding: 8px 15px; display: flex; align-items: center; gap: 15px; overflow: hidden;
+}
+.ticker-title { font-weight: 800; font-size: 0.85rem; white-space: nowrap; color: #ffffff; }
+.ticker-content { flex: 1; overflow: hidden; position: relative; height: 18px; }
+.ticker-text-wrapper { display: flex; gap: 40px; position: absolute; white-space: nowrap; animation: running-text 25s linear infinite; font-size: 0.75rem; font-weight: bold; }
+
+@keyframes running-text { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
